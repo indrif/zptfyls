@@ -2,13 +2,8 @@
 # TODO playlist methods should return strings instead of printing
 
 def get_artists(artists):
-    result = ""
-    for artist in artists:
-        if len(result) > 0:
-            result += ", "
-        result += artist['name']
-
-    return result
+    names = map(lambda v: v['name'], artists)
+    return ', '.join(names)
 
 def is_relevant_playlist(username, playlist):
 
