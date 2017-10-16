@@ -1,7 +1,7 @@
 # TODO remove duplicated code in playlist methods
 # TODO playlist methods should return strings instead of printing
 
-def getArtists(artists):
+def get_artists(artists):
     result = ""
     for artist in artists:
         if len(result) > 0:
@@ -10,7 +10,7 @@ def getArtists(artists):
 
     return result
 
-def isRelevantPlaylist(username, playlist):
+def is_relevant_playlist(username, playlist):
 
     if playlist['owner']['id'] != username:
         return False
