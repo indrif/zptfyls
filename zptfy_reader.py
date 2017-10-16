@@ -15,57 +15,57 @@ def is_relevant_playlist(username, playlist):
     if playlist['owner']['id'] != username:
         return False
 
-    noOfTracks = playlist['tracks']['total']
-    if noOfTracks == 0:
+    tracks_count = playlist['tracks']['total']
+    if tracks_count == 0:
         return False
 
     return True
 
 def list_playlist_html(username, spotipy, playlist):
 
-    if not (isRelevantPlaylist(username, playlist)):
+    if not (is_relevant_playlist(username, playlist)):
         return
 
-    noOfTracks = playlist['tracks']['total']
-    if noOfTracks == 0:
+    tracks_count = playlist['tracks']['total']
+    if tracks_count == 0:
         return
 
-    blankTableRow = '<tr><td>&nbsp;</td></tr>'
+    blank_table_row = '<tr><td>&nbsp;</td></tr>'
 
-    print(blankTableRow)
+    print(blank_table_row)
     print('<tr><td><b>' + playlist['name'] + ' (' + str(playlist['tracks']['total']) + ' tracks)</b></td></tr>')
-    print(blankTableRow)
+    print(blank_table_row)
     if(playlist['images']):
         print("<tr rowspan='2'><td><img src='" + playlist['images'][0]['url'] + "'/></td></tr>")
         print('')
-        print(blankTableRow)
+        print(blank_table_row)
 
-    trackItems = spotipy.user_playlist_tracks(username, playlist['id'])
+    track_items = spotipy.user_playlist_tracks(username, playlist['id'])
 
     ix = 1
 
-    for item in trackItems['items']:
-        artist = getArtists(item['track']['artists'])
-        trackInfo = "%02d: %s - %s" % (ix, artist, item['track']['name'])
-        print('<tr><td>' + trackInfo + '</td></tr>')
+    for item in track_items['items']:
+        artist = get_artists(item['track']['artists'])
+        track_info = "%02d: %s - %s" % (ix, artist, item['track']['name'])
+        print('<tr><td>' + track_info + '</td></tr>')
         ix += 1
 
 def list_playlist_text(username, spotipy, playlist):
 
-    if not (isRelevantPlaylist(username, playlist)):
+    if not (is_relevant_playlist(username, playlist)):
         return
 
     print(playlist['name'] + ' (' + str(playlist['tracks']['total']) + ' tracks)')
     print('')
 
-    trackItems = spotipy.user_playlist_tracks(username, playlist['id'])
+    track_items = spotipy.user_playlist_tracks(username, playlist['id'])
 
     ix = 1
 
-    for item in trackItems['items']:
-        artist = getArtists(item['track']['artists'])
-        trackInfo = "%02d: %s - %s" % (ix, artist, item['track']['name'])
-        print(trackInfo)
+    for item in track_items['items']:
+        artist = get_artists(item['track']['artists'])
+        track_info = "%02d: %s - %s" % (ix, artist, item['track']['name'])
+        print(track_info)
         ix += 1
 
     print('')
